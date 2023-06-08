@@ -9,31 +9,28 @@
 		return str_replace($punctuation_marks,"",$word);
 	}
 
+	function printAnalyzedTextResult($splitted_text_size, $phrase_counter, $letter_counter, $longest_word) {
+		echo "Number of words on this text is:".$splitted_text_size.PHP_EOL;
+    	echo "Number of phrase on this text is:".$phrase_counter.PHP_EOL;
+    	echo "Average length of the words of this text:".$letter_counter/$splitted_text_size.PHP_EOL;
+    	echo "Longest word is ".$longest_word.PHP_EOL;
+
+	}
+
 	function analyzeText($text) {
     	$splitted_text = explode(" ",$text);
     	$phrase_counter = 0;
     	$letter_counter = 0;
     	$longest_word = "";
-    	$max_word_length = 0;
     	foreach($splitted_text as $word) {
     		if(hasDot($word)) ++$phrase_counter;
     		$word = removePunctuationMarks($word);
-    		var_dump($word);
     		$word_length = strlen($word);
     		$letter_counter += $word_length;
-    		if($word_length > $max_word_length) {
-    			$max_word_length = $word_length;
-    			$longest_word = $word;
-    		}
-
+    		if($word_length > strlen($longest_word)) $longest_word = $word;
     	}
-    	echo "Number of words on this text is:".count($splitted_text).PHP_EOL;
-    	echo "Number of phrase on this text is:".$phrase_counter.PHP_EOL;
-    	echo "Average length of the words of this text:".$letter_counter/count($splitted_text).PHP_EOL;
-    	echo "Longest word is ".$longest_word;
+    	printAnalyzedTextResult(count($splitted_text),$phrase_counter,$letter_counter,$longest_word);
     }
-
-
 	$texto1 = "Esto es un texto, de: prueba. Tendrá solo 3 oraciones. A ver si funciona.";
 	$esto_es_un_monologazo="Love is awful. It’s awful. It’s painful. It’s frightening. 
 It makes you doubt yourself, judge yourself, distance yourself from the other people in your life. I
