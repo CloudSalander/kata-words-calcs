@@ -4,6 +4,11 @@
 		return $has_dot;
 	}
 
+	function removePunctuationMarks($word) {
+		$punctuation_marks = ['.',';',',',':','!','¡','?','¿','"','\''];
+		return str_replace($punctuation_marks,"",$word);
+	}
+
 	function analyzeText($text) {
     	$splitted_text = explode(" ",$text);
     	$phrase_counter = 0;
@@ -12,7 +17,8 @@
     	$max_word_length = 0;
     	foreach($splitted_text as $word) {
     		if(hasDot($word)) ++$phrase_counter;
-    		$word = str_replace(".", "",$word);
+    		$word = removePunctuationMarks($word);
+    		var_dump($word);
     		$word_length = strlen($word);
     		$letter_counter += $word_length;
     		if($word_length > $max_word_length) {
@@ -28,7 +34,7 @@
     }
 
 
-	$texto1 = "Esto es un texto de prueba. Tendrá solo 3 oraciones. A ver si funciona.";
+	$texto1 = "Esto es un texto, de: prueba. Tendrá solo 3 oraciones. A ver si funciona.";
 	$esto_es_un_monologazo="Love is awful. It’s awful. It’s painful. It’s frightening. 
 It makes you doubt yourself, judge yourself, distance yourself from the other people in your life. I
 t makes you selfish. It makes you creepy, makes you obsessed with your hair, makes you cruel, makes you say and do things you never thought you would do. 
